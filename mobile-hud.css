@@ -21,3 +21,5 @@
 @media(orientation:portrait){#mm-hud-editor{padding:10px}.mm-editor-top{gap:5px}.mm-editor-top strong{font-size:10px;letter-spacing:1px}.mm-editor-top small{max-width:110px}.mm-editor-top button{padding:7px!important}.mm-editor-row{gap:8px}.mm-editor-bottom{flex-wrap:wrap;gap:5px}#mm-hud-status{flex-basis:50%}.mobile-ui .mm-panel#ml-story31{max-width:180px!important}.mm-custom-hud #nl-badge-frame{top:145px!important}}
 
 .mm-hud-edit-mode .mm-panel{display:block!important}
+
+.mm-editor-position{display:flex;align-items:center;gap:6px;margin-top:7px;font-size:10px;color:#c7d2ca}.mm-editor-position span{margin-right:4px}.mm-editor-position small{margin-left:auto;font-size:9px;color:#a9b9b0}#mm-hud-editor .mm-editor-position button{min-height:27px;width:29px;height:27px;padding:2px;font-size:16px;line-height:1}.mm-editor-row label{min-width:0}.mm-editor-row select{box-sizing:border-box}
