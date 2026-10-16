@@ -1,4 +1,4 @@
-# MUDLINE â€” ELZE games
+# MUDLINE - ELZE games
 
 Browser FPS set in Sambisa Forest, with OBA Mountain Story Mode and human PvP rooms.
 
@@ -10,7 +10,7 @@ First run `tar -xzf assets-01.tar.gz && tar -xzf assets-02.tar.gz` to restore th
 
 ## Publish
 
-The game is a static PlayCanvas export. `assets-01.tar.gz` and `assets-02.tar.gz` contains the original exported `files/assets/` tree; Netlify restores it with `tar -xzf assets-01.tar.gz && tar -xzf assets-02.tar.gz`, then publishes the repository root. The included netlify.toml supports Netlify. GitHub stores the source; the game is hosted on Netlify.
+The game is a static PlayCanvas export. `assets-01.tar.gz` and `assets-02.tar.gz` contain the original exported `files/assets/` tree; Netlify restores it with `tar -xzf assets-01.tar.gz && tar -xzf assets-02.tar.gz`, then publishes the repository root. The included netlify.toml supports Netlify. GitHub stores the source; the game is hosted on Netlify.
 
 ## Controls
 
