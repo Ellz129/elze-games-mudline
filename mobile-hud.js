@@ -1,7 +1,16 @@
 /* Original MUDLINE mobile HUD: touch layout editing stays on this device. */
 (function(){'use strict';
 var paths={fire:'M8 17 15 3l4 4-7 14-5-2z M9 15l5 3',aim:'M12 2v4m0 12v4M2 12h4m12 0h4M18 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0z',jump:'m7 16 5-8 5 8M12 8V2M4 21h16',reload:'M19 8a8 8 0 1 0 1 9M19 3v6h-6',crouch:'M15 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z M12 8l-3 5 6 2 3 6M9 13l-5 7M12 9l5 3 4-1',sprint:'M14 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4z M13 8l-4 5 5 3-2 6M10 12l-5 7M13 9l4 4h4M9 7 5 10',interact:'M8 12V5a1 1 0 0 1 2 0v6-8a1 1 0 0 1 2 0v8-6a1 1 0 0 1 2 0v7-4a1 1 0 0 1 2 0v9c0 4-8 5-10 1l-3-5a1 1 0 0 1 2-1l3 3',vehicle:'m4 9 2-5h12l2 5M3 9h18v9H3zM6 18v3m12-3v3M6 13h2m8 0h2',weapon:'M3 11h13v4H8l-2 6H3l2-7H2V8h7V6h9v3h4v3h-6',pause:'M8 4v16M16 4v16',map:'m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2zM9 3v16M15 5v16',edit:'M4 5h16M4 12h16M4 19h16M8 2v6m8 1v6m-6 1v6',quality:'M4 18V9m8 9V4m8 14v-6',fullscreen:'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5'};
-function icon(name){return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="'+(paths[name]||paths.edit)+'"/></svg>';}
+// Original filled action silhouettes, readable at thumb-control sizes.
+var solid={
+fire:'<g transform="rotate(42 12 12)"><path d="M12 1c-2 2.5-3 4.5-3 7h6c0-2.5-1-4.5-3-7zM9 9h6v11H9zM8.5 21h7v2h-7z"/></g>',
+crouch:'<circle cx="12" cy="4.5" r="2.4"/><path d="M9.4 3.8c.1-3 5-3.3 5.4 0zM9 7l4 .3 2.5 3.2 3-.5.6 1.9-5 1-2.2-2.2-1.3 3.1 5 1.9.8 5H21v2h-6.8l-1-4.8-5.7-1.5-2.2 4.1H2v-2l2.1-.4L7 12zM14 8.7h8v1.6h-4.4l-.6 2h-1.5l.3-2H14z"/>',
+sprint:'<circle cx="14.2" cy="3.7" r="2.3"/><path d="M11.4 6.2l4.1 1.1 2.1 4.3 3.3.2-.1 2-4.7-.2-2-3.1-2.5 4.1 4.7 2.1-1.2 5.8-2.5-.4.5-4-4.1-1.1-3.3 4.8H2.5v-2.1l2.1-.4 3.1-5.6 2-4.1-2.5.7-2 3-1.8-1.3 2.5-4z"/>',
+jump:'<circle cx="13.5" cy="3.4" r="2.3"/><path d="M10.6 5.9l4.4 1 2.2 4.1 4.2-.2.1 2-5.6.4-2-3-1.7 3.6 4.8 2.1 1.7 4.7-2.4.9-2-4-4.2-1-3 3.3L2 17.2l1.1-2 3.2 1.5 2.6-3.5 1.2-4.1-3.4.5L4 6.1l1.7-1.6L8 7z"/>',
+reload:'<g transform="rotate(-25 12 12)"><path d="M7 5 5 9v9h4V9zM13 3l-2 4v11h4V7zM19 5l-2 4v9h4V9z"/></g><path d="M3 15c0 5 5 8 10 7l-.5-2C8 21 5 18 5 15h2l-3-4-3 4z"/>',
+weapon:'<path d="M1 10h5V8h8V6h3v2h5v2h1v2h-7l-1 5-3-.5.5-4H9l-2 6H4l2-7H1zM18 5h2v4h-2z"/>'
+};
+function icon(name){return '<svg'+(solid[name]?' class="mm-silhouette"':'')+' viewBox="0 0 24 24" aria-hidden="true" focusable="false">'+(solid[name]||'<path d="'+(paths[name]||paths.edit)+'"/>')+'</svg>';}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}function clone(a){return JSON.parse(JSON.stringify(a));}
 var defaults={move:[.12,.80,1,.65],fire:[.85,.70,1,.78],aim:[.87,.39,1,.66],jump:[.95,.57,1,.66],reload:[.74,.86,1,.66],crouch:[.94,.88,1,.66],sprint:[.12,.53,1,.56],interact:[.65,.82,1,.58],vehicle:[.65,.61,1,.58],weapon:[.5,.71,1,.66],pause:[.88,.075,1,.7],map:[.81,.075,1,.7],minimap:[.085,.15,1,.9],health:[.5,.96,1,.95],ammo:[.5,.835,1,.95],objective:[.16,.38,1,.85],score:[.5,.08,1,.8]};
 function base(id,portrait){var a=(defaults[id]||[.5,.5,1,.7]).slice();if(portrait){var portraitPos={move:[.17,.82],fire:[.78,.74],aim:[.87,.54],jump:[.90,.65],reload:[.61,.80],crouch:[.87,.88],sprint:[.17,.67],interact:[.46,.74],vehicle:[.48,.62],weapon:[.5,.86],pause:[.86,.045],map:[.71,.045],minimap:[.13,.10],objective:[.30,.24],score:[.5,.13],health:[.5,.96],ammo:[.5,.92]};if(portraitPos[id]){a[0]=portraitPos[id][0];a[1]=portraitPos[id][1];}}return {x:a[0],y:a[1],scale:a[2],opacity:a[3],hidden:false};}
