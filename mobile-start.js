@@ -291,6 +291,7 @@
                 window.addEventListener('resize', pcBootstrap.reflowHandler, false);
                 window.addEventListener('orientationchange', pcBootstrap.reflowHandler, false);
 
+                app.on("preload:progress", function(value){var el=document.getElementById("mobile-progress");if(el)el.textContent="Loading essentials · "+Math.round(value*100)+"%";});
                 app.preload(() => {
                     window.installMudlineMobile(Mudline);
                     app.scenes.loadScene(window.SCENE_PATH, (err) => {

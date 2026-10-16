@@ -1,13 +1,11 @@
-# MUDLINE Mobile (separate build)
+# MUDLINE Mobile v2
 
-Open `/mobile/` or `/mobile.html`. The normal `/` laptop version is unchanged; no device redirect is installed.
+Separate mobile entry `/mobile/` or `/mobile.html`. Desktop game files are unchanged.
 
-Left thumb moves; drag the open right side to look. Hold FIRE, tap AIM, JUMP, RELOAD, SPRINT or CROUCH. Hold USE for interactions; DRIVE enters/exits the car. The top toolbar provides menu, map, weapon, mobile quality and fullscreen. Landscape is recommended; portrait remains usable.
+Balanced rendering: up to 1.5 physical pixels per CSS pixel, 1024px filtered directional shadows, 90m forest draw radius, half-resolution four-sample contact shading, ACES tone mapping, subtle bloom and neutral overcast lighting. Battery retains lighter shadows and 55m radius. Slow frames reduce render scale to a 0.65 floor; hardware FPS is not guaranteed. Nearby uploaded rifle/glove texture detail is retained up to 2048px, world maps up to 1024px.
 
-Only the mobile entry loads `mobile-config.json`, `mobile-start.js`, `mobile-profile.js` and `mobile.css`. Shared game code, models, gameplay, map collision and networking stay the same. The mobile bootstrap installs the adapter after script preload and before scene initialization.
+The mobile script is extracted from the shared source with embedded resources moved to mobile-assets. The original 10.06MB script becomes 0.57MB. Unique configured preload files total 19.44MB instead of 39.01MB (uncompressed manifest sizes; actual network transfer differs). Obsolete overwritten soldier resources remain packaged but are lazy thenables and are not fetched. Current soldier/HDR/grip payloads load when used. Vehicle and OBA uploaded models load within 170m of their area, one at a time; player arms load immediately. All game mechanics and map collisions remain.
 
-Balanced: 0.85 pixel ratio ceiling, 75m forest streaming radius, one 512px directional shadow, up to 140 rain streaks. Battery: 0.65 pixel ratio, 55m forest radius, no dynamic shadows, up to 80 streaks. Slow frames lower the mobile render scale to a 0.55 floor. Texture maps are capped at 1024 pixels when safely resizable. Full desktop post processing is disabled; far corpse records remain persistent but rendering is culled at 65m. Maximum loading concurrency is 8.
+Mobile GLBs have preserved geometry/rigs, resized image payloads and HTTP gzip transport. `_headers` MUST deploy with these files; it tells browsers to decompress the mobile GLBs. Desktop model URLs are unchanged. The mobile build includes an explicit static netlify.toml in the deployment archive; the GitHub build extracts both original asset packs and the two mobile asset packs. The build command is the only changed original desktop file; all 27 original game files are byte-identical.
 
-These are rendering budgets, not an FPS guarantee. A real Android/iPhone hardware test is still needed. Large shared model downloads and some CPU scene-generation work remain; this release does not claim a tiny download or native-app performance.
-
-Deployment uses the existing Netlify build. `_redirects` aliases only the two mobile URLs; the laptop route and original tracked files are unchanged. If Netlify credits remain paused, the files can be committed to GitHub but the public mobile route cannot go live yet.
+Verification: desktop SHA256 isolation, mobile input/streaming tests, JS syntax, GLB buffer/accessor integrity, live mobile rendering and supplied-arm loading. Local browser boot telemetry is recorded for diagnosis; it is not a phone or network speed guarantee.

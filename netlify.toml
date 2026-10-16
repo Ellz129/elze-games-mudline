@@ -1,3 +1,3 @@
 [build]
-  command = "tar -xzf assets-01.tar.gz && tar -xzf assets-02.tar.gz"
+  command = "tar -xzf assets-01.tar.gz && tar -xzf assets-02.tar.gz && tar -xzf mobile-assets-01.tar.gz && tar -xzf mobile-assets-02.tar.gz"
   publish = "."
