@@ -1,0 +1,3 @@
+[build]
+  command = "tar -xzf assets-01.tar.gz && tar -xzf assets-02.tar.gz"
+  publish = "."
